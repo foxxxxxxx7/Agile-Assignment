@@ -58,3 +58,13 @@ test_jobX:
     - branchX
   script:
     - echo "Run test job X"
+
+exercise_job:
+  stage: 
+    - build
+    - test
+  only:
+    - main
+  script:
+    - echo "Run exercise job"
+
