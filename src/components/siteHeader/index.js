@@ -17,12 +17,12 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 const SiteHeader = ({ history }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-      };
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
+    // const handleClick = (event) => {
+    //     setAnchorEl(event.currentTarget);
+    //   };
+    //   const handleClose = () => {
+    //     setAnchorEl(null);
+    //   };
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));

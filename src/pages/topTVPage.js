@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { getTopTV } from "../api/tmdb-api";
 import TVListPageTemplate from '../components/templateTVListPage'
 import Spinner from '../components/spinner';

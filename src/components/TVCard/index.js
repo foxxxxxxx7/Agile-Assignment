@@ -19,7 +19,7 @@ import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 
 
 export default function TVCard({ tv, action }) {
-    const { tvfavorites, addToTVFavorites } = useContext(TVContext);
+    const { tvfavorites } = useContext(TVContext);
     const { TVwatchlist } = useContext(TVContext);
 
     if (tvfavorites.find((id) => id === tv.id)) {
@@ -33,10 +33,10 @@ export default function TVCard({ tv, action }) {
         tv.TVwatchlist = false
     }
 
-    const handleAddToFavorite = (e) => {
-        e.preventDefault();
-        addToTVFavorites(tv);
-    };
+    // const handleAddToFavorite = (e) => {
+    //     e.preventDefault();
+    //     addToTVFavorites(tv);
+    // };
 
     return (
         <Card sx={{ maxWidth: 345 }}>

@@ -19,7 +19,7 @@ import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 
 
 export default function MovieCard({ movie, action }) {
-    const { favorites, addToFavorites } = useContext(MoviesContext);
+    const { favorites } = useContext(MoviesContext);
     const { watchlist } = useContext(MoviesContext);
 
     if (favorites.find((id) => id === movie.id)) {
