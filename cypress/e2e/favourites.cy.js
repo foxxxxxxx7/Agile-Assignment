@@ -14,7 +14,7 @@ describe("The favourites feature", () => {
       });
   });
   beforeEach(() => {
-    cy.visit("/");
+    cy.visit("/movies");
   });
 
   describe("Selecting favourites", () => {
