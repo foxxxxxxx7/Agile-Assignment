@@ -15,7 +15,7 @@ describe("Filtering", () => {
             });
     });
     beforeEach(() => {
-        cy.visit("/");
+        cy.visit("/movies");
     });
 
     describe("By movie title", () => {

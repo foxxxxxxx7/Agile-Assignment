@@ -14,7 +14,7 @@ describe("Navigation", () => {
             });
     });
     beforeEach(() => {
-        cy.visit("/");
+        cy.visit("/movies");
     });
     describe("From the home page to a movie's details", () => {
         it("navigates to the movie details page and change browser URL", () => {
