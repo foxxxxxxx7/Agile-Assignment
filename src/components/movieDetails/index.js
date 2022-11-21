@@ -78,7 +78,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
       <Fab
         color="secondary"
         variant="extended"
-        onClick={() =>setDrawerOpen(true)}
+        onClick={() => setDrawerOpen(true)}
         sx={{
           position: 'fixed',
           bottom: '1em',

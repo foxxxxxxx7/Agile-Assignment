@@ -17,6 +17,12 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 const SiteHeader = ({ history }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+      const handleClose = () => {
+        setAnchorEl(null);
+      };
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -24,10 +30,15 @@ const SiteHeader = ({ history }) => {
     const navigate = useNavigate();
 
     const menuOptions = [
-        { label: "Home", path: "/" },
+        { label: "Home", path: "/movies" },
         { label: "Favorites", path: "/movies/favorites" },
         { label: "Upcoming", path: "/movies/upcoming" },
-        { label: "Option 4", path: "/" },
+        { label: "Top Movies", path: "/movies/topMovies" },
+        { label: "TV", path: "/tv" },
+        { label: "TV Favorites", path: "/tv/favorites" },
+        { label: "Top TV", path: "/tv/topTV" },
+        { label: "Logout", path: "/" },
+        // { label: "Upcoming TV", path: "/tv/upcomingTV"},
     ];
 
     const handleMenuSelect = (pageURL) => {
@@ -46,7 +57,7 @@ const SiteHeader = ({ history }) => {
                         TMDB Client
                     </Typography>
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                        All you ever wanted to know about Movies!
+                        All you ever wanted to know about Movies and TV!
                     </Typography>
                     {isMobile ? (
                         <>

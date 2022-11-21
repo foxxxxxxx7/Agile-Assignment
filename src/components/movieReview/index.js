@@ -1,6 +1,6 @@
 import React from "react";
 
-const MovieReview =  ({ review }) => {
+const MovieReview = ({ review }) => {
   return (
     <>
       <p>Review By: {review.author} </p>

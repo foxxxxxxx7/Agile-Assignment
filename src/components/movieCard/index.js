@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -9,19 +9,34 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import IconButton from "@mui/material/IconButton";
+//import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png';
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
+import { MoviesContext } from "../../contexts/moviesContext";
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 
-export default function MovieCard(props) {
-    const movie = props.movie;
 
-    const handleAddToFavorite = (e) => {
-        e.preventDefault();
-        props.selectFavorite(movie.id);
-    };
+export default function MovieCard({ movie, action }) {
+    const { favorites, addToFavorites } = useContext(MoviesContext);
+    const { watchlist } = useContext(MoviesContext);
+
+    if (favorites.find((id) => id === movie.id)) {
+        movie.favorite = true;
+    } else {
+        movie.favorite = false
+    }
+    if (watchlist.find((id) => id === movie.id)) {
+        movie.watchlist = true;
+    } else {
+        movie.watchlist = false
+    }
+
+    // const handleAddToFavorite = (e) => {
+    //     e.preventDefault();
+    //     addToFavorites(movie);
+    // };
 
     return (
         <Card sx={{ maxWidth: 345 }}>
@@ -30,6 +45,10 @@ export default function MovieCard(props) {
                     movie.favorite ? (
                         <Avatar sx={{ backgroundColor: 'red' }}>
                             <FavoriteIcon />
+                        </Avatar>
+                    ) : movie.watchlist ? (
+                        <Avatar sx={{ backgroundColor: 'green' }}>
+                            <PlaylistAddCheckIcon />
                         </Avatar>
                     ) : null
                 }
@@ -64,9 +83,7 @@ export default function MovieCard(props) {
                 </Grid>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites" onClick={handleAddToFavorite}>
-                    <FavoriteIcon color="primary" fontSize="large" />
-                </IconButton>
+                {action(movie)}
                 <Link to={`/movies/${movie.id}`}>
                     <Button variant="outlined" size="medium" color="primary">
                         More Info ...
