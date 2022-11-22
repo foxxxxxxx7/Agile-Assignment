@@ -1,5 +1,3 @@
-let movies;
-const movieId = 497582; // Enola Holmes movie id
 let tvs;
 const tvID = 90462; // Chucky TV Show ID
 
