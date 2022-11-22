@@ -1,6 +1,7 @@
 let tvs;
 let tv;
 let toptvs;
+let topMovies;
 
 describe("Base tests", () => {
   before(() => {
@@ -72,8 +73,26 @@ describe("Base tests", () => {
       cy.get(".MuiCardHeader-root")
         .within(() => {
           cy.get("p").each(($card, index) => {
-            cy.log(toptvs[index])
             cy.wrap($card).contains(toptvs[index].name);
+          });
+        });
+    });
+  });
+
+  describe("The top Movies page", () => {
+    before(() => {
+      cy.request(`https://api.themoviedb.org/3/movie/top_rated?api_key=${Cypress.env("TMDB_KEY")}&language=en-US&include_adult=false&include_video=false&page=1`)
+        .its("body")
+        .then((movieDetails) => {
+          topMovies = movieDetails.results;
+        });
+    });
+    it("displays the top rated movies", () => {
+      cy.visit("/movies/topMovies");
+      cy.get(".MuiCardHeader-root")
+        .within(() => {
+          cy.get("p").each(($card, index) => {
+            cy.wrap($card).contains(topMovies[index].title);
           });
         });
     });
