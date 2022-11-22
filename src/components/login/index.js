@@ -88,7 +88,7 @@ const register = () => {
             </div>
 
             <h4> User Logged In: </h4>
-            {user?.email}
+            <h5>{user?.email}</h5>
 
             <button onClick={logout}> Sign Out </button>
         </div>
