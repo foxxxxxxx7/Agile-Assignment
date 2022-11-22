@@ -1,5 +1,3 @@
-let movies; // List of movies from TMDB
-let movie; //
 let tvs;
 let tv;
 
