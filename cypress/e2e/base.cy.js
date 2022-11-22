@@ -1,5 +1,6 @@
 let tvs;
 let tv;
+let toptvs;
 
 describe("Base tests", () => {
   before(() => {
@@ -45,7 +46,6 @@ describe("Base tests", () => {
       cy.visit(`/tv/${tvs[0].id}`);
     });
     it(" displays the TV show title, overview and genres and ", () => {
-      // cy.get("h3").contains(tv.name);
       cy.get("h3").contains("Overview");
       cy.get("h3").next().contains(tv.overview);
       cy.get("ul")
@@ -55,6 +55,25 @@ describe("Base tests", () => {
           genreChipLabels.unshift("Genres");
           cy.get("span").each(($card, index) => {
             cy.wrap($card).contains(genreChipLabels[index]);
+          });
+        });
+    });
+  });
+  describe("The top TV shows page", () => {
+    before(() => {
+      cy.request(`https://api.themoviedb.org/3/tv/top_rated?api_key=${Cypress.env("TMDB_KEY")}&language=en-US&include_adult=false&include_video=false&page=1`)
+        .its("body")
+        .then((tvDetails) => {
+          toptvs = tvDetails.results;
+        });
+    });
+    it("displays the top rated TV shows", () => {
+      cy.visit("/tv/topTV");
+      cy.get(".MuiCardHeader-root")
+        .within(() => {
+          cy.get("p").each(($card, index) => {
+            cy.log(toptvs[index])
+            cy.wrap($card).contains(toptvs[index].name);
           });
         });
     });
