@@ -1,34 +1,34 @@
 import { filterByGenre, filterByTitle, filterByTitleAndGenre } from "../support/e2e";
-let movies; // List of Discover movies from TMDB
+let tvs;
 
 describe("Filtering", () => {
     before(() => {
         // Get movies from TMDB and store them locally.
         cy.request(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${Cypress.env(
+            `https://api.themoviedb.org/3/discover/tv?api_key=${Cypress.env(
                 "TMDB_KEY"
             )}&language=en-US&include_adult=false&include_video=false&page=1`
         )
             .its("body")
             .then((response) => {
-                movies = response.results;
+                tvs = response.results;
             });
     });
     beforeEach(() => {
-        cy.visit("/movies");
+        cy.visit("/tv");
     });
 
-    describe("By movie title", () => {
-        it("only display movies with 'm' in the title", () => {
-            const searchString = "m";
-            const matchingMovies = filterByTitle(movies, searchString);
+    describe("By TV show title", () => {
+        it("only display tv shows with 'c' in the title", () => {
+            const searchString = "c";
+            const matchingTVshows = filterByTitle(tvs, searchString);
             cy.get("#filled-search").clear().type(searchString); // Enter m in text box
             cy.get(".MuiCardHeader-content").should(
                 "have.length",
-                matchingMovies.length
+                matchingTVshows.length
             );
             cy.get(".MuiCardHeader-content").each(($card, index) => {
-                cy.wrap($card).find("p").contains(matchingMovies[index].title);
+                cy.wrap($card).find("p").contains(matchingTVshows[index].name);
             });
         });
         it("handles case when there are no matches", () => {
@@ -37,34 +37,34 @@ describe("Filtering", () => {
             cy.get(".MuiCardHeader-content").should("have.length", 0);
         });
     });
-    describe("By movie genre", () => {
-        it("show movies with the selected genre", () => {
+    describe("By TV show genre", () => {
+        it("show TV shows with the selected genre", () => {
             const selectedGenreId = 35;
             const selectedGenreText = "Comedy";
-            const matchingMovies = filterByGenre(movies, selectedGenreId);
+            const matchingTVshows = filterByGenre(tvs, selectedGenreId);
             cy.get("#genre-select").click();
             cy.get("li").contains(selectedGenreText).click();
             cy.get(".MuiCardHeader-content").should(
                 "have.length",
-                matchingMovies.length
+                matchingTVshows.length
             );
             cy.get(".MuiCardHeader-content").each(($card, index) => {
-                cy.wrap($card).find("p").contains(matchingMovies[index].title);
+                cy.wrap($card).find("p").contains(matchingTVshows[index].name);
             });
         });
     });
     describe("Combined genre and title", () => {
-        it("show movies with the selected genre and title", () => {
-            const selectedGenreId = 35;
-            const selectedGenreText = "Comedy";
-            const searchString = "bullet";
-            const matchingMovies = filterByTitleAndGenre(movies, selectedGenreId, searchString);
-            cy.get("#filled-search").clear().type(searchString); // Enter m in text box
+        it("show TV shows with the selected genre and title", () => {
+            const selectedGenreId = 10765;
+            const selectedGenreText = "Sci-Fi & Fantasy";
+            const searchString = "chucky";
+            const matchingTVshows = filterByTitleAndGenre(tvs, selectedGenreId, searchString);
+            cy.get("#filled-search").clear().type(searchString);
             cy.get("#genre-select").click();
             cy.get("li").contains(selectedGenreText).click();
             cy.get(".MuiCardHeader-content").should(
                 "have.length",
-                matchingMovies.length
+                matchingTVshows.length
             );
 
         });
