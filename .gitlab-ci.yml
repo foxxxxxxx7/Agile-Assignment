@@ -27,6 +27,9 @@ install_dependencies:
   artifacts:
     paths:
       - node_modules/
+  only:
+    - develop
+    - features
 
 bundle_app:
   stage: build
@@ -35,6 +38,9 @@ bundle_app:
   artifacts:
     paths:
       - build/
+  only:
+    - develop
+    - features
 
 e2etest:
   # Node docker image with Cypress and Chrome pre-installed

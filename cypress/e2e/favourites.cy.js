@@ -44,4 +44,12 @@ describe("The favourites feature", () => {
         .contains(tvs[3].name);
     });
   });
+  describe("Remove favorite", () => {
+    it("favorited TV shows have option to remove favoirte", () => {
+        cy.get("button[aria-label='add to favorites']").eq(1).click();
+        cy.get("button").contains("TV Favorites").click();
+        cy.get("svg[data-testid='DeleteIcon']").click();
+        cy.get(".MuiCardHeader-content").should("have.length", 0);
+    });
+});
 });
